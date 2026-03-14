@@ -4,12 +4,12 @@
 
 ### `init`
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, rng_contract: Address, prize_pool_contract: Address, balance_contract: Address, ) -> Result<(), Error>
 ```
 
 ### `place_prediction`
 ```rust
-pub fn place_prediction(
+pub fn place_prediction( env: Env, player: Address, prediction: u32, wager: i128, game_id: u64, ) -> Result<(), Error>
 ```
 
 ### `resolve_game`

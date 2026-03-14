@@ -13,7 +13,7 @@ pub fn init(env: Env, admin: Address)
 Report the health of a contract. The reporter must be authorized. Admin can report for any contract; other monitors must be pre-approved (future extension).
 
 ```rust
-pub fn report_health(
+pub fn report_health( env: Env, reporter: Address, contract_id: Address, status: HealthStatus, details_hash: Symbol, )
 ```
 
 ### `set_health_policy`

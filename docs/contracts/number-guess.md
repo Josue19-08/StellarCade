@@ -8,14 +8,14 @@ Full state for a single number-guess game.
 Initialize the contract. May only be called once.  - `rng_contract`: address of the deployed Random Generator contract. - `prize_pool_contract`: reserved for future prize-pool integration. - `balance_contract`: the SEP-41 token used for wagers and payouts. - `min_wager` / `max_wager`: inclusive wager bounds enforced in `start_game`. - `house_edge_bps`: house take in basis points (e.g. 250 = 2.5 %).
 
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, rng_contract: Address, prize_pool_contract: Address, balance_contract: Address, min_wager: i128, max_wager: i128, house_edge_bps: i128, ) -> Result<(), Error>
 ```
 
 ### `start_game`
 Start a new number-guess game.  The player selects a range `[min, max]` and places a `wager`.  Tokens are transferred from the player to this contract immediately.  A randomness request is submitted to the RNG contract using the `game_id` as the request identifier, so `game_id` must be globally unique across the RNG contract's request space.  `game_id` is caller-provided and must not collide with any existing pending or fulfilled RNG request.
 
 ```rust
-pub fn start_game(
+pub fn start_game( env: Env, player: Address, min: u32, max: u32, wager: i128, game_id: u64, ) -> Result<(), Error>
 ```
 
 ### `submit_guess`

@@ -13,14 +13,14 @@ pub fn init(env: Env, admin: Address) -> Result<(), Error>
 Register initial metadata for a contract.
 
 ```rust
-pub fn register_metadata(
+pub fn register_metadata( env: Env, contract_id: Address, version: u32, schema_hash: BytesN<32>, docs_uri: String, ) -> Result<(), Error>
 ```
 
 ### `update_metadata`
 Update metadata for an existing contract (incrementing version).
 
 ```rust
-pub fn update_metadata(
+pub fn update_metadata( env: Env, contract_id: Address, version: u32, schema_hash: BytesN<32>, docs_uri: String, ) -> Result<(), Error>
 ```
 
 ### `metadata_of`

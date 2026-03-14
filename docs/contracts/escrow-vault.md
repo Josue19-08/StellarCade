@@ -13,7 +13,7 @@ pub fn init(env: Env, admin: Address, token_address: Address)
 Create a new escrow. The payer locks `amount` tokens into the contract.
 
 ```rust
-pub fn create_escrow(
+pub fn create_escrow( env: Env, payer: Address, payee: Address, amount: i128, terms_hash: Symbol, ) -> u64
 ```
 
 ### `release_escrow`

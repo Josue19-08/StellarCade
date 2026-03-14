@@ -6,14 +6,14 @@
 Initialize the coin flip game.  `house_edge_bps`: house edge in basis points (e.g., 250 = 2.5%).
 
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, rng_contract: Address, token: Address, min_wager: i128, max_wager: i128, house_edge_bps: i128, ) -> Result<(), Error>
 ```
 
 ### `place_bet`
 Player places a bet. Tokens are transferred into the contract. A randomness request is submitted to the RNG contract.  `side`: 0 = Heads, 1 = Tails.
 
 ```rust
-pub fn place_bet(
+pub fn place_bet( env: Env, player: Address, side: u32, wager: i128, game_id: u64, ) -> Result<(), Error>
 ```
 
 ### `resolve_bet`

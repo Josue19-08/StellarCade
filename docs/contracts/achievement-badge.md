@@ -15,7 +15,7 @@ pub fn init(env: Env, admin: Address, reward_contract: Address) -> Result<(), Er
 Define a new achievement badge. Admin only.  `badge_id` must be unique; re-defining an existing badge returns `BadgeAlreadyExists`. `criteria_hash` is the 32-byte SHA-256 hash of the off-chain criteria document. `reward` is the token amount awarded through the reward contract on badge issuance; use 0 for no reward.
 
 ```rust
-pub fn define_badge(
+pub fn define_badge( env: Env, admin: Address, badge_id: u64, criteria_hash: BytesN<32>, reward: i128, ) -> Result<(), Error>
 ```
 
 ### `evaluate_user`

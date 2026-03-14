@@ -13,14 +13,14 @@ pub fn init(env: Env, admin: Address, treasury_contract: Address)
 Define or update a violation rule. Admin-only.
 
 ```rust
-pub fn define_violation(
+pub fn define_violation( env: Env, code: Symbol, penalty_rule: PenaltyRule, )
 ```
 
 ### `apply_penalty`
 Apply a penalty to an account. Admin-only. Slashes tokens from `account` and transfers them to the treasury.
 
 ```rust
-pub fn apply_penalty(
+pub fn apply_penalty( env: Env, account: Address, code: Symbol, context_hash: Symbol, token_address: Address, ) -> u64
 ```
 
 ### `appeal_penalty`

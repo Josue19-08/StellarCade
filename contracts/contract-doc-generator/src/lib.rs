@@ -163,11 +163,33 @@ impl DocGenerator {
             // Detect Methods
             if trimmed.contains("pub fn") {
                 let name_regex = Regex::new(r"fn\s+([a-zA-Z0-9_]+)").unwrap();
-                if let Some(cap) = name_regex.captures(trimmed) {
+                // Capture multi-line signatures (common in contract methods).
+                let mut signature = trimmed.to_string();
+                while !signature.contains('{') {
+                    let Some(next_line) = lines.peek() else { break };
+                    let next_trimmed = next_line.trim();
+                    if next_trimmed.is_empty() {
+                        break;
+                    }
+                    signature.push(' ');
+                    signature.push_str(next_trimmed);
+                    lines.next();
+                    if next_trimmed.contains('{') || next_trimmed.ends_with(';') {
+                        break;
+                    }
+                }
+
+                let normalized_signature = signature
+                    .replace('{', "")
+                    .split_whitespace()
+                    .collect::<Vec<_>>()
+                    .join(" ");
+
+                if let Some(cap) = name_regex.captures(&normalized_signature) {
                     doc.methods.push(MethodDoc {
                         name: cap[1].to_string(),
                         description: if current_docs.is_empty() { None } else { Some(current_docs.join(" ")) },
-                        signature: trimmed.replace("{", "").trim().to_string(),
+                        signature: normalized_signature,
                     });
                 }
             }
@@ -299,5 +321,43 @@ pub struct RewardClaimed {
         assert_eq!(doc.methods[0].name, "init");
         assert_eq!(doc.events.len(), 1);
         assert_eq!(doc.events[0].name, "RewardClaimed");
+    }
+
+    #[test]
+    fn test_multiline_method_signature_parsing() {
+        let dir = tempdir().unwrap();
+        let src_dir = dir.path().join("src");
+        fs::create_dir(&src_dir).unwrap();
+        let lib_rs = src_dir.join("lib.rs");
+
+        let mock_code = r#"
+#[contract]
+pub struct PrizePool;
+
+#[contractimpl]
+impl PrizePool {
+    /// Releases reserved amount.
+    pub fn release(
+        env: Env,
+        admin: Address,
+        game_id: u64,
+        amount: i128,
+    ) -> Result<(), Error> {
+        Ok(())
+    }
+}
+"#;
+        fs::write(lib_rs, mock_code).unwrap();
+        fs::write(dir.path().join("Cargo.toml"), "").unwrap();
+
+        let generator = DocGenerator::new(dir.path().to_path_buf(), dir.path().join("docs"));
+        let doc = generator.parse_contract(dir.path()).unwrap();
+
+        assert_eq!(doc.methods.len(), 1);
+        assert_eq!(doc.methods[0].name, "release");
+        assert_eq!(
+            doc.methods[0].signature,
+            "pub fn release( env: Env, admin: Address, game_id: u64, amount: i128, ) -> Result<(), Error>"
+        );
     }
 }

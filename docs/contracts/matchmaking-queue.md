@@ -13,7 +13,7 @@ pub fn init(env: Env, admin: Address)
 Enqueue a player into a matchmaking queue. Player must auth.
 
 ```rust
-pub fn enqueue_player(
+pub fn enqueue_player( env: Env, queue_id: Symbol, player: Address, criteria_hash: Symbol, )
 ```
 
 ### `dequeue_player`

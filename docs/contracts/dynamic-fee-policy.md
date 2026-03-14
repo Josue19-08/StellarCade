@@ -13,14 +13,14 @@ pub fn init(env: Env, admin: Address) -> Result<(), Error>
 Set a fee rule for a game.
 
 ```rust
-pub fn set_fee_rule(
+pub fn set_fee_rule( env: Env, game_id: Symbol, rule_config: FeeRuleConfig, ) -> Result<(), Error>
 ```
 
 ### `compute_fee`
 Compute the fee for a given amount and context.
 
 ```rust
-pub fn compute_fee(
+pub fn compute_fee( env: Env, game_id: Symbol, amount: i128, context: FeeContext, ) -> Result<i128, Error>
 ```
 
 ### `enable_rule`

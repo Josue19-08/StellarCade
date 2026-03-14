@@ -13,7 +13,7 @@ pub fn init(env: Env, admin: Address, min_delay: u64)
 Queue an upgrade proposal. Admin-only. `eta` must be at least `now + min_delay`.
 
 ```rust
-pub fn queue_upgrade(
+pub fn queue_upgrade( env: Env, target_contract: Address, payload_hash: Symbol, eta: u64, ) -> u64
 ```
 
 ### `cancel_upgrade`

@@ -6,14 +6,14 @@
 Initialise the contract.
 
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, reward_contract: Address, treasury_contract: Address, ) -> Result<(), Error>
 ```
 
 ### `enqueue_settlement`
 Enqueue a new settlement.
 
 ```rust
-pub fn enqueue_settlement(
+pub fn enqueue_settlement( env: Env, settlement_id: Symbol, account: Address, amount: i128, reason: Symbol, ) -> Result<(), Error>
 ```
 
 ### `process_next`

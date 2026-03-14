@@ -9,7 +9,7 @@ pub fn init(env: Env, admin: Address) -> Result<(), Error>
 
 ### `record_sample`
 ```rust
-pub fn record_sample(
+pub fn record_sample( env: Env, admin: Address, method: Symbol, cpu: u64, read_bytes: u64, write_bytes: u64, ) -> Result<MethodProfile, Error>
 ```
 
 ### `get_method_profile`

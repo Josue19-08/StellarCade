@@ -15,7 +15,7 @@ pub fn init(env: Env, admin: Address, treasury_contract: Address) -> Result<(), 
 Define a new VIP subscription plan. Admin only.  `plan_id` must be unique; re-defining an existing plan returns `PlanAlreadyExists`. `price` must be positive. `duration` must be positive (in seconds). `benefits_hash` is the 32-byte SHA-256 hash of the off-chain benefits document.
 
 ```rust
-pub fn define_plan(
+pub fn define_plan( env: Env, admin: Address, plan_id: u32, price: i128, duration: u64, benefits_hash: BytesN<32>, ) -> Result<(), Error>
 ```
 
 ### `subscribe`

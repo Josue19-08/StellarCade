@@ -6,21 +6,21 @@
 Initialize the contract with core dependencies.
 
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, prize_pool_contract: Address, balance_contract: Address, ) -> Result<(), Error>
 ```
 
 ### `open_question`
 Open a new trivia question. Added `reward_amount` to facilitate prize pool reservation.
 
 ```rust
-pub fn open_question(
+pub fn open_question( env: Env, round_id: u64, answer_commitment: BytesN<32>, deadline: u64, reward_amount: i128, ) -> Result<(), Error>
 ```
 
 ### `submit_answer`
 Submit an answer for a specific round. `timestamp` is provide by the caller, verified to be within ledger bounds.
 
 ```rust
-pub fn submit_answer(
+pub fn submit_answer( env: Env, player: Address, round_id: u64, answer: Bytes, timestamp: u64, ) -> Result<(), Error>
 ```
 
 ### `finalize_round`

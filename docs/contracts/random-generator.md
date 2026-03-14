@@ -29,14 +29,14 @@ pub fn revoke(env: Env, admin: Address, caller: Address) -> Result<(), Error>
 Submit a randomness request. Only whitelisted callers may call this.  `max` must be >= 2. The fulfilled result will be in `[0, max - 1]`. `request_id` must be globally unique — rejected if a pending or fulfilled entry for the same ID already exists.
 
 ```rust
-pub fn request_random(
+pub fn request_random( env: Env, caller: Address, request_id: u64, max: u64, ) -> Result<(), Error>
 ```
 
 ### `fulfill_random`
 Fulfill a pending randomness request. Oracle only.  The result is derived as: `sha256(server_seed || request_id_be_bytes)[0..8] % max`  Both `server_seed` and `result` are persisted for on-chain verification. Fairness holds when the oracle published `sha256(server_seed)` before the corresponding `request_random` call was submitted.
 
 ```rust
-pub fn fulfill_random(
+pub fn fulfill_random( env: Env, oracle: Address, request_id: u64, server_seed: BytesN<32>, ) -> Result<(), Error>
 ```
 
 ### `get_result`

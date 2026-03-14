@@ -6,14 +6,14 @@
 Initialize the dice roll game.  `house_edge_bps`: house edge in basis points (e.g., 250 = 2.5%).
 
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, rng_contract: Address, token: Address, min_wager: i128, max_wager: i128, house_edge_bps: i128, ) -> Result<(), Error>
 ```
 
 ### `roll`
 Player places a dice roll bet. Tokens are transferred into the contract. A randomness request is submitted to the RNG contract.  `prediction`: the die face the player predicts (1–6).
 
 ```rust
-pub fn roll(
+pub fn roll( env: Env, player: Address, prediction: u32, wager: i128, game_id: u64, ) -> Result<(), Error>
 ```
 
 ### `resolve_roll`

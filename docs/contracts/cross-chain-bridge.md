@@ -4,7 +4,7 @@
 
 ### `init`
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, validators: Vec<BytesN<32>>, quorum: u32, ) -> Result<(), Error>
 ```
 
 ### `set_token_mapping`
@@ -19,21 +19,21 @@ pub fn set_paused(env: Env, paused: bool) -> Result<(), Error>
 
 ### `lock`
 ```rust
-pub fn lock(
+pub fn lock( env: Env, from: Address, asset: Address, amount: i128, recipient_chain: Symbol, recipient: String ) -> Result<(), Error>
 ```
 
 ### `mint_wrapped`
 ```rust
-pub fn mint_wrapped(
+pub fn mint_wrapped( env: Env, asset_symbol: Symbol, amount: i128, recipient: Address, proof: BytesN<32>, signatures: Map<BytesN<32>, BytesN<64>> ) -> Result<(), Error>
 ```
 
 ### `burn_wrapped`
 ```rust
-pub fn burn_wrapped(
+pub fn burn_wrapped( env: Env, from: Address, asset: Address, amount: i128, recipient_chain: Symbol, recipient: String ) -> Result<(), Error>
 ```
 
 ### `release`
 ```rust
-pub fn release(
+pub fn release( env: Env, asset: Address, amount: i128, recipient: Address, proof: BytesN<32>, signatures: Map<BytesN<32>, BytesN<64>> ) -> Result<(), Error>
 ```
 

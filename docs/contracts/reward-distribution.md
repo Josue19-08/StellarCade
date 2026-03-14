@@ -6,21 +6,21 @@
 Initialise the contract.  Can only be called once.  * `admin`             — privileged account for campaign management. * `treasury_contract` — address of the on-chain treasury holding campaign budgets (stored for composability). * `balance_contract`  — address of the token / balance contract used to settle claims.
 
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, treasury_contract: Address, balance_contract: Address, ) -> Result<(), Error>
 ```
 
 ### `define_reward_campaign`
 Define a new reward campaign.  Admin only.  * `campaign_id` — unique numeric identifier. * `rules_hash`  — SHA-256 of the off-chain eligibility rules document. * `budget`      — maximum tokens distributable; must be > 0.
 
 ```rust
-pub fn define_reward_campaign(
+pub fn define_reward_campaign( env: Env, campaign_id: u32, rules_hash: BytesN<32>, budget: i128, ) -> Result<(), Error>
 ```
 
 ### `accrue_reward`
 Record a pending reward for `user`.  Admin only.  The call is additive — repeated calls accumulate until the user claims. The campaign's `remaining` balance is decremented immediately to uphold the invariant `Σ accrued ≤ budget`.
 
 ```rust
-pub fn accrue_reward(
+pub fn accrue_reward( env: Env, user: Address, campaign_id: u32, amount: i128, ) -> Result<(), Error>
 ```
 
 ### `claim_reward`

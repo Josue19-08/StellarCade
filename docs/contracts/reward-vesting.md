@@ -13,7 +13,7 @@ pub fn init(env: Env, admin: Address, token_address: Address)
 Create a new vesting schedule for `user`.  * `amount`             – tokens to vest (> 0) * `start_timestamp`    – when vesting begins (UNIX seconds) * `cliff_seconds`      – seconds from start before any claim * `duration_seconds`   – total linear-vesting window (> 0)
 
 ```rust
-pub fn create_vesting_schedule(
+pub fn create_vesting_schedule( env: Env, user: Address, amount: i128, start_timestamp: u64, cliff_seconds: u64, duration_seconds: u64, ) -> u64
 ```
 
 ### `claim_vested`

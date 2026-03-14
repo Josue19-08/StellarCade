@@ -6,14 +6,14 @@
 Initialize the contract.
 
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, nft_contract: Address, reward_contract: Address, ) -> Result<(), Error>
 ```
 
 ### `define_nft_reward`
 Define a new NFT reward campaign. Admin only.
 
 ```rust
-pub fn define_nft_reward(
+pub fn define_nft_reward( env: Env, campaign_id: u32, metadata_uri: String, supply: u32, ) -> Result<(), Error>
 ```
 
 ### `mint_reward`

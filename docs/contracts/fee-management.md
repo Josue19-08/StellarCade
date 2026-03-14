@@ -13,14 +13,14 @@ pub fn init(env: Env, admin: Address, treasury_contract: Address) -> Result<(), 
 Set fee configuration for a game
 
 ```rust
-pub fn set_fee_config(
+pub fn set_fee_config( env: Env, admin: Address, game_id: Symbol, bps: u32, recipient: Address, ) -> Result<(), Error>
 ```
 
 ### `charge_fee`
 Charge fee for a game transaction
 
 ```rust
-pub fn charge_fee(
+pub fn charge_fee( env: Env, game_id: Symbol, amount: i128, token: Option<Address>, ) -> Result<i128, Error>
 ```
 
 ### `accrued_fees`
@@ -34,7 +34,7 @@ pub fn accrued_fees(env: Env, game_id: Symbol) -> Result<i128, Error>
 Withdraw accrued fees for a game
 
 ```rust
-pub fn withdraw_fees(
+pub fn withdraw_fees( env: Env, admin: Address, game_id: Symbol, recipient: Option<Address>, amount: Option<i128>, ) -> Result<(), Error>
 ```
 
 ### `pause`

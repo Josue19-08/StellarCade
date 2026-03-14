@@ -22,7 +22,7 @@ pub fn set_reward_bps(env: Env, admin: Address, bps: u32) -> Result<(), Error>
 Update the reward contract address. Admin only.
 
 ```rust
-pub fn set_reward_contract(
+pub fn set_reward_contract( env: Env, admin: Address, reward_contract: Address, ) -> Result<(), Error>
 ```
 
 ### `register_referrer`
@@ -36,7 +36,7 @@ pub fn register_referrer(env: Env, user: Address, referrer: Address) -> Result<(
 Record a referral event for `user`.  Called by an admin/operator when a qualifying action occurs (e.g. game played, deposit made). The `amount` is the transaction value and the reward is computed as `amount * reward_bps / 10_000`.  The reward is credited to the **referrer** of `user`.
 
 ```rust
-pub fn record_referral_event(
+pub fn record_referral_event( env: Env, admin: Address, user: Address, event_type: EventType, amount: i128, ) -> Result<(), Error>
 ```
 
 ### `claim_referral_reward`

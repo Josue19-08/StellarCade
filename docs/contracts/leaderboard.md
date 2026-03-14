@@ -13,21 +13,21 @@ pub fn init(env: Env, admin: Address) -> Result<(), Error>
 Authorize or deauthorize an address (e.g., a game contract) to submit scores.
 
 ```rust
-pub fn set_authorized(
+pub fn set_authorized( env: Env, admin: Address, addr: Address, auth: bool, ) -> Result<(), Error>
 ```
 
 ### `set_game_active`
 Set a game's active status.
 
 ```rust
-pub fn set_game_active(
+pub fn set_game_active( env: Env, admin: Address, game_id: Symbol, active: bool, ) -> Result<(), Error>
 ```
 
 ### `submit_score`
 Submit a score for a player in a game. Only authorized callers can submit scores.
 
 ```rust
-pub fn submit_score(
+pub fn submit_score( env: Env, caller: Address, player: Address, game_id: Symbol, score: u64, ) -> Result<(), Error>
 ```
 
 ### `update_rankings`

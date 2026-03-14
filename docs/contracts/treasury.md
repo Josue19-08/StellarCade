@@ -24,7 +24,7 @@ pub fn deposit(env: Env, from: Address, amount: i128, reason: Symbol) -> Result<
 
 ### `allocate`
 ```rust
-pub fn allocate(
+pub fn allocate( env: Env, to_contract: Address, amount: i128, purpose: Symbol, ) -> Result<(), Error>
 ```
 
 ### `release`

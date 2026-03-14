@@ -36,7 +36,7 @@ pub fn release(env: Env, admin: Address, game_id: u64, amount: i128) -> Result<(
 Transfer `amount` tokens to `to` from a game's reservation. Admin only.  Multiple calls against the same `game_id` are permitted (e.g., one call per winner in a multi-winner game). Each call decrements `remaining`; the reservation is removed when `remaining` hits zero.  All accounting state is updated BEFORE the external `token.transfer` to eliminate reentrancy risk: if the token call panics, state reflects the attempted debit, preventing a retry from double-paying.
 
 ```rust
-pub fn payout(
+pub fn payout( env: Env, admin: Address, to: Address, game_id: u64, amount: i128, ) -> Result<(), Error>
 ```
 
 ### `get_pool_state`

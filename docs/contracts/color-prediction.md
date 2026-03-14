@@ -8,14 +8,14 @@ Metadata and accumulated state for one prediction game.
 Initialize the contract. May only be called once.  Stores admin, rng_contract, prize_pool_contract, and balance_contract in instance storage. Subsequent calls return `AlreadyInitialized`.
 
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, rng_contract: Address, prize_pool_contract: Address, balance_contract: Address, ) -> Result<(), Error>
 ```
 
 ### `place_prediction`
 Place a color prediction for an open game.  `color` must be one of COLOR_RED (0), COLOR_GREEN (1), COLOR_BLUE (2), COLOR_YELLOW (3). `wager` must be positive. Each player may predict exactly once per game. The game is created implicitly on the first prediction for a given `game_id`.  Emits `PredictionPlaced`.
 
 ```rust
-pub fn place_prediction(
+pub fn place_prediction( env: Env, player: Address, color: u32, wager: i128, game_id: u64, ) -> Result<(), Error>
 ```
 
 ### `resolve_prediction`

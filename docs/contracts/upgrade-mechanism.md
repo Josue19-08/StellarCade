@@ -4,7 +4,7 @@
 
 ### `init`
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, initial_wasm_hash: BytesN<32>, initial_schema_version: u32, ) -> Result<(), Error>
 ```
 
 ### `pause`
@@ -19,17 +19,17 @@ pub fn unpause(env: Env, admin: Address) -> Result<(), Error>
 
 ### `trigger_kill_switch`
 ```rust
-pub fn trigger_kill_switch(
+pub fn trigger_kill_switch( env: Env, admin: Address, reason_hash: BytesN<32>, ) -> Result<(), Error>
 ```
 
 ### `configure_test_gate`
 ```rust
-pub fn configure_test_gate(
+pub fn configure_test_gate( env: Env, admin: Address, gate_contract: Address, suite: Symbol, enabled: bool, ) -> Result<(), Error>
 ```
 
 ### `stage_upgrade`
 ```rust
-pub fn stage_upgrade(
+pub fn stage_upgrade( env: Env, admin: Address, version: u32, wasm_hash: BytesN<32>, target_schema_version: u32, migration_hash: BytesN<32>, changelog_hash: BytesN<32>, ) -> Result<(), Error>
 ```
 
 ### `execute_upgrade`

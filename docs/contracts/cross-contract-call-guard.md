@@ -13,27 +13,27 @@ pub fn init(env: Env, admin: Address) -> Result<(), Error>
 Allow a specific cross-contract call. Admin only.
 
 ```rust
-pub fn allow_call(
+pub fn allow_call( env: Env, source: Address, target: Address, selector: Symbol, ) -> Result<(), Error>
 ```
 
 ### `deny_call`
 Deny (remove permission for) a specific cross-contract call. Admin only.
 
 ```rust
-pub fn deny_call(
+pub fn deny_call( env: Env, source: Address, target: Address, selector: Symbol, ) -> Result<(), Error>
 ```
 
 ### `assert_allowed`
 Assert that a call is allowed. Traps/Errs if not found or explicitly denied.
 
 ```rust
-pub fn assert_allowed(
+pub fn assert_allowed( env: Env, source: Address, target: Address, selector: Symbol, ) -> Result<(), Error>
 ```
 
 ### `policy_state`
 Check the state of a specific policy.
 
 ```rust
-pub fn policy_state(
+pub fn policy_state( env: Env, source: Address, target: Address, selector: Symbol, ) -> bool
 ```
 

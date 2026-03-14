@@ -27,7 +27,7 @@ pub fn emit_for_epoch(env: Env, schedule_id: Symbol) -> u64
 Claim a daily reward for a specific epoch. User must not have claimed before.
 
 ```rust
-pub fn claim_daily_reward(
+pub fn claim_daily_reward( env: Env, user: Address, schedule_id: Symbol, epoch_id: u64, reward_amount: i128, )
 ```
 
 ### `emission_state`

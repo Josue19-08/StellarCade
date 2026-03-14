@@ -8,21 +8,21 @@ Puzzle metadata and result summary.
 Initialize the contract. May only be called once.  Stores admin, prize pool contract address, and balance contract address in instance storage. Subsequent calls return `AlreadyInitialized`.
 
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, prize_pool_contract: Address, balance_contract: Address, ) -> Result<(), Error>
 ```
 
 ### `create_daily_puzzle`
 Create a new daily puzzle. Admin only.  `puzzle_id` must be unique. `answer_commitment` is `SHA-256(answer_bytes)` computed off-chain. The plaintext answer is never stored until the admin calls `reveal_answer`.  Emits `PuzzleCreated`.
 
 ```rust
-pub fn create_daily_puzzle(
+pub fn create_daily_puzzle( env: Env, puzzle_id: u64, answer_commitment: BytesN<32>, ) -> Result<(), Error>
 ```
 
 ### `submit_attempt`
 Submit a 5-letter guess for an open puzzle.  A player may submit up to `MAX_ATTEMPTS` (6) guesses. Guesses must be exactly `WORD_LENGTH` (5) bytes. Scores are computed after finalization; the `scores` field is empty until then.  Emits `AttemptSubmitted`.
 
 ```rust
-pub fn submit_attempt(
+pub fn submit_attempt( env: Env, player: Address, puzzle_id: u64, attempt: Bytes, ) -> Result<(), Error>
 ```
 
 ### `reveal_answer`

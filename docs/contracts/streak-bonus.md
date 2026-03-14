@@ -13,7 +13,7 @@ pub fn init(env: Env, admin: Address, reward_contract: Address) -> Result<(), Er
 Record an activity for a user. Caller must be the user (require_auth) or admin.
 
 ```rust
-pub fn record_activity(
+pub fn record_activity( env: Env, caller: Address, user: Address, activity_type: Symbol, ts: u64, ) -> Result<u32, Error>
 ```
 
 ### `current_streak`

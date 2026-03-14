@@ -13,21 +13,21 @@ pub fn init(env: Env, admin: Address, registry_contract: Address) -> Result<(), 
 Register a route: source_contract may dispatch to target_contract via selector. Admin only.
 
 ```rust
-pub fn register_route(
+pub fn register_route( env: Env, admin: Address, source_contract: Address, target_contract: Address, selector: Symbol, ) -> Result<u32, Error>
 ```
 
 ### `dispatch`
 Dispatch a request along a registered route. Caller must be admin or source_contract for that route.
 
 ```rust
-pub fn dispatch(
+pub fn dispatch( env: Env, caller: Address, request_id: Symbol, route_id: u32, payload: Bytes, ) -> Result<(), Error>
 ```
 
 ### `acknowledge`
 Acknowledge a pending request with a result. Caller must be admin or target_contract for that request's route.
 
 ```rust
-pub fn acknowledge(
+pub fn acknowledge( env: Env, caller: Address, request_id: Symbol, result: Bytes, ) -> Result<(), Error>
 ```
 
 ### `get_route`

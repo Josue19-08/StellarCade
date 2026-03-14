@@ -6,7 +6,7 @@
 Initialise the staking contract.
 
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, staking_token: Address, reward_token: Address, ) -> Result<(), Error>
 ```
 
 ### `set_reward_rate`

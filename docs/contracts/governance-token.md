@@ -6,7 +6,7 @@
 Initializes the contract with the admin address and token setup. Requires admin authorization to prevent arbitrary initialization.
 
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, name: String, symbol: String, decimals: u32 ) -> Result<(), Error>
 ```
 
 ### `mint`

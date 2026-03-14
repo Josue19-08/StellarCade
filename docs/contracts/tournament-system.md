@@ -6,14 +6,14 @@
 Initialize the tournament system. May only be called once.
 
 ```rust
-pub fn init(
+pub fn init( env: Env, admin: Address, fee_contract: Address, reward_contract: Address, ) -> Result<(), Error>
 ```
 
 ### `create_tournament`
 Create a new tournament. Admin only.
 
 ```rust
-pub fn create_tournament(
+pub fn create_tournament( env: Env, admin: Address, id: u64, rules_hash: BytesN<32>, entry_fee: i128, ) -> Result<(), Error>
 ```
 
 ### `join_tournament`
@@ -27,7 +27,7 @@ pub fn join_tournament(env: Env, player: Address, id: u64) -> Result<(), Error>
 Record a score for a player in a tournament. Admin/Authorized only.
 
 ```rust
-pub fn record_result(
+pub fn record_result( env: Env, admin: Address, id: u64, player: Address, score: u64, ) -> Result<(), Error>
 ```
 
 ### `finalize_tournament`
