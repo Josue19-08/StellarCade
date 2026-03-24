@@ -31,6 +31,14 @@ pub struct MethodDoc {
     pub name: String,
     pub description: Option<String>,
     pub signature: String,
+    pub parameters: Vec<ParameterDoc>,
+    pub return_type: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ParameterDoc {
+    pub name: String,
+    pub type_name: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -189,10 +197,13 @@ impl DocGenerator {
                     .replace(" )", ")");
 
                 if let Some(cap) = name_regex.captures(&normalized_signature) {
+                    let (parameters, return_type) = self.extract_params_and_return(&normalized_signature);
                     doc.methods.push(MethodDoc {
                         name: cap[1].to_string(),
                         description: if current_docs.is_empty() { None } else { Some(current_docs.join(" ")) },
                         signature: normalized_signature,
+                        parameters,
+                        return_type,
                     });
                 }
             }
@@ -227,6 +238,39 @@ impl DocGenerator {
         Ok(doc)
     }
 
+    fn extract_params_and_return(&self, signature: &str) -> (Vec<ParameterDoc>, Option<String>) {
+        let mut parameters = Vec::new();
+        let mut return_type = None;
+
+        let base_signature;
+        if let Some(arrow_pos) = signature.find("->") {
+            return_type = Some(signature[arrow_pos + 2..].trim().to_string());
+            base_signature = &signature[..arrow_pos];
+        } else {
+            base_signature = signature;
+        }
+
+        // Extract parameters between first ( and last ) of the base_signature
+        if let Some(start_paren) = base_signature.find('(') {
+            if let Some(end_paren) = base_signature.rfind(')') {
+                let params_str = &base_signature[start_paren + 1..end_paren];
+                if !params_str.trim().is_empty() {
+                    for param in params_str.split(',') {
+                        let parts: Vec<&str> = param.split(':').collect();
+                        if parts.len() == 2 {
+                            parameters.push(ParameterDoc {
+                                name: parts[0].trim().to_string(),
+                                type_name: parts[1].trim().to_string(),
+                            });
+                        }
+                    }
+                }
+            }
+        }
+
+        (parameters, return_type)
+    }
+
     fn write_docs(&self, mut docs: Vec<ContractDoc>) -> Result<(), String> {
         if !self.output_path.exists() {
             fs::create_dir_all(&self.output_path).map_err(|e| e.to_string())?;
@@ -254,6 +298,21 @@ impl DocGenerator {
                         content.push_str(&format!("{}\n\n", d));
                     }
                     content.push_str(&format!("```rust\n{}\n```\n\n", m.signature));
+
+                    if !m.parameters.is_empty() {
+                        content.push_str("#### Parameters\n\n");
+                        content.push_str("| Name | Type |\n");
+                        content.push_str("|------|------|\n");
+                        for p in &m.parameters {
+                            content.push_str(&format!("| `{}` | `{}` |\n", p.name, p.type_name));
+                        }
+                        content.push_str("\n");
+                    }
+
+                    if let Some(rt) = &m.return_type {
+                        content.push_str("#### Return Type\n\n");
+                        content.push_str(&format!("`{}`\n\n", rt));
+                    }
                 }
             }
 
@@ -322,6 +381,9 @@ pub struct RewardClaimed {
         assert!(doc.description.unwrap().contains("Reward Distribution"));
         assert_eq!(doc.methods.len(), 2);
         assert_eq!(doc.methods[0].name, "init");
+        assert_eq!(doc.methods[0].parameters.len(), 2);
+        assert_eq!(doc.methods[0].parameters[0].name, "env");
+        assert_eq!(doc.methods[0].parameters[0].type_name, "Env");
         assert_eq!(doc.events.len(), 1);
         assert_eq!(doc.events[0].name, "RewardClaimed");
     }
@@ -362,5 +424,9 @@ impl PrizePool {
             doc.methods[0].signature,
             "pub fn release(env: Env, admin: Address, game_id: u64, amount: i128) -> Result<(), Error>"
         );
+        assert_eq!(doc.methods[0].parameters.len(), 4);
+        assert_eq!(doc.methods[0].parameters[2].name, "game_id");
+        assert_eq!(doc.methods[0].parameters[2].type_name, "u64");
+        assert_eq!(doc.methods[0].return_type.as_deref(), Some("Result<(), Error>"));
     }
 }

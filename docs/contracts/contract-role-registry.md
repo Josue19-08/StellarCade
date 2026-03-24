@@ -9,12 +9,27 @@ Initializes the contract with an admin.
 pub fn init(env: Env, admin: Address)
 ```
 
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `admin` | `Address` |
+
 ### `assign_role`
 Assigns a role to a given address. Requires admin authorization.
 
 ```rust
 pub fn assign_role(env: Env, target: Address, role: Symbol)
 ```
+
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `target` | `Address` |
+| `role` | `Symbol` |
 
 ### `revoke_role`
 Revokes a role. Requires admin authorization.
@@ -23,6 +38,14 @@ Revokes a role. Requires admin authorization.
 pub fn revoke_role(env: Env, target: Address, role: Symbol)
 ```
 
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `target` | `Address` |
+| `role` | `Symbol` |
+
 ### `has_role`
 Public query method verifying if the target has the specific role.
 
@@ -30,10 +53,32 @@ Public query method verifying if the target has the specific role.
 pub fn has_role(env: Env, target: Address, role: Symbol) -> bool
 ```
 
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `target` | `Address` |
+| `role` | `Symbol` |
+
+#### Return Type
+
+`bool`
+
 ### `get_admin`
 Retrieves the current admin address.
 
 ```rust
 pub fn get_admin(env: Env) -> Address
 ```
+
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+
+#### Return Type
+
+`Address`
 

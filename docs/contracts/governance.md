@@ -9,12 +9,41 @@ Initialize governance with token and parameters.  `voting_period`: ledgers for v
 pub fn init(env: Env, admin: Address, governance_token: Address, voting_period: u32, timelock_delay: u32, quorum_bps: u32, threshold_bps: u32) -> Result<(), Error>
 ```
 
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `admin` | `Address` |
+| `governance_token` | `Address` |
+| `voting_period` | `u32` |
+| `timelock_delay` | `u32` |
+| `quorum_bps` | `u32` |
+| `threshold_bps` | `u32` |
+
+#### Return Type
+
+`Result<(), Error>`
+
 ### `propose`
 Create a new proposal. Anyone can propose.  `payload_hash`: SHA-256 of the action to execute (verified at execution)
 
 ```rust
 pub fn propose(env: Env, proposer: Address, proposal_id: u64, payload_hash: BytesN<32>) -> Result<(), Error>
 ```
+
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `proposer` | `Address` |
+| `proposal_id` | `u64` |
+| `payload_hash` | `BytesN<32>` |
+
+#### Return Type
+
+`Result<(), Error>`
 
 ### `vote`
 Cast a vote on an active proposal.  `support`: true = for, false = against `weight`: voter's token balance at time of vote (verified on-chain)
@@ -23,12 +52,36 @@ Cast a vote on an active proposal.  `support`: true = for, false = against `weig
 pub fn vote(env: Env, proposal_id: u64, voter: Address, support: bool) -> Result<(), Error>
 ```
 
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `proposal_id` | `u64` |
+| `voter` | `Address` |
+| `support` | `bool` |
+
+#### Return Type
+
+`Result<(), Error>`
+
 ### `queue`
 Queue a succeeded proposal into the timelock. Anyone can call.  Requirements: voting ended, quorum reached, threshold met
 
 ```rust
 pub fn queue(env: Env, proposal_id: u64) -> Result<(), Error>
 ```
+
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `proposal_id` | `u64` |
+
+#### Return Type
+
+`Result<(), Error>`
 
 ### `execute`
 Execute a queued proposal after timelock. Anyone can call.  `payload_hash_verify`: must match stored hash (prevents bait-and-switch)
@@ -37,12 +90,36 @@ Execute a queued proposal after timelock. Anyone can call.  `payload_hash_verify
 pub fn execute(env: Env, proposal_id: u64, payload_hash_verify: BytesN<32>) -> Result<(), Error>
 ```
 
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `proposal_id` | `u64` |
+| `payload_hash_verify` | `BytesN<32>` |
+
+#### Return Type
+
+`Result<(), Error>`
+
 ### `cancel`
 Admin can cancel a proposal at any state (emergency function)
 
 ```rust
 pub fn cancel(env: Env, admin: Address, proposal_id: u64) -> Result<(), Error>
 ```
+
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `admin` | `Address` |
+| `proposal_id` | `u64` |
+
+#### Return Type
+
+`Result<(), Error>`
 
 ### `get_proposal`
 Get proposal details
@@ -51,10 +128,33 @@ Get proposal details
 pub fn get_proposal(env: Env, proposal_id: u64) -> Result<Proposal, Error>
 ```
 
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `proposal_id` | `u64` |
+
+#### Return Type
+
+`Result<Proposal, Error>`
+
 ### `has_voted`
 Check if an address has voted on a proposal
 
 ```rust
 pub fn has_voted(env: Env, proposal_id: u64, voter: Address) -> bool
 ```
+
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `proposal_id` | `u64` |
+| `voter` | `Address` |
+
+#### Return Type
+
+`bool`
 

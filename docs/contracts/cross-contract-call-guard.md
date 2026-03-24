@@ -9,12 +9,36 @@ Initialize the guard with an admin address.
 pub fn init(env: Env, admin: Address) -> Result<(), Error>
 ```
 
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `admin` | `Address` |
+
+#### Return Type
+
+`Result<(), Error>`
+
 ### `allow_call`
 Allow a specific cross-contract call. Admin only.
 
 ```rust
 pub fn allow_call(env: Env, source: Address, target: Address, selector: Symbol) -> Result<(), Error>
 ```
+
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `source` | `Address` |
+| `target` | `Address` |
+| `selector` | `Symbol` |
+
+#### Return Type
+
+`Result<(), Error>`
 
 ### `deny_call`
 Deny (remove permission for) a specific cross-contract call. Admin only.
@@ -23,6 +47,19 @@ Deny (remove permission for) a specific cross-contract call. Admin only.
 pub fn deny_call(env: Env, source: Address, target: Address, selector: Symbol) -> Result<(), Error>
 ```
 
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `source` | `Address` |
+| `target` | `Address` |
+| `selector` | `Symbol` |
+
+#### Return Type
+
+`Result<(), Error>`
+
 ### `assert_allowed`
 Assert that a call is allowed. Traps/Errs if not found or explicitly denied.
 
@@ -30,10 +67,36 @@ Assert that a call is allowed. Traps/Errs if not found or explicitly denied.
 pub fn assert_allowed(env: Env, source: Address, target: Address, selector: Symbol) -> Result<(), Error>
 ```
 
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `source` | `Address` |
+| `target` | `Address` |
+| `selector` | `Symbol` |
+
+#### Return Type
+
+`Result<(), Error>`
+
 ### `policy_state`
 Check the state of a specific policy.
 
 ```rust
 pub fn policy_state(env: Env, source: Address, target: Address, selector: Symbol) -> bool
 ```
+
+#### Parameters
+
+| Name | Type |
+|------|------|
+| `env` | `Env` |
+| `source` | `Address` |
+| `target` | `Address` |
+| `selector` | `Symbol` |
+
+#### Return Type
+
+`bool`
 
