@@ -154,15 +154,3 @@ Returns a leaderboard snapshot (addresses of players) for a given round. Support
 ```rust
 pub fn get_leaderboard(env: Env, round_id: u32, limit: Option<u32>) -> Vec<Address>
 ```
-#### Parameters
-
-| Name | Type |
-|------|------|
-| `env` | `Env` |
-| `round_id` | `u32` |
-| `player` | `Address` |
-
-#### Return Type
-
-`bool`
-
