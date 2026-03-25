@@ -3,7 +3,7 @@ const mockInsert = jest.fn().mockReturnThis();
 const mockReturning = jest.fn().mockResolvedValue([{ id: 1 }]);
 
 jest.mock('../../src/config/database', () => {
-  const mock = jest.fn((tableName) => ({
+  const mock = jest.fn((_tableName) => ({
     insert: mockInsert,
     returning: mockReturning,
     where: jest.fn().mockReturnThis(),
@@ -23,7 +23,6 @@ jest.mock('../../src/utils/logger', () => ({
 }));
 
 const audit = require('../../src/services/audit.service');
-const AuditLog = require('../../src/models/AuditLog.model');
 const logger = require('../../src/utils/logger');
 
 describe('Audit Log Service', () => {
