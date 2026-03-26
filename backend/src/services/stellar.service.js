@@ -173,7 +173,6 @@ const submitTransactionAsync = async (transactionXDR) => {
   let _transaction;
   try {
     _transaction = StellarSdk.TransactionBuilder.fromXDR(transactionXDR, passphrase);
->>>>>>> feature/outbox-worker
   } catch (parseErr) {
     logger.warn('Invalid transaction XDR supplied for async submission:', parseErr.message);
     return {
